@@ -92,3 +92,33 @@ plt.show()
 
 
 ![xxx](/img/Figure1.png)
+### Пятый этап
+*Когда разобрали все нужные нам для работы команды, функции и библиотеки, мы можем приступить к написанию кода, который будет просчитывать все возможные пути и будет выводить наилучший.*
+```
+import numpy as np
+import matplotlib.pyplot as plt
+from itertools import permutations
+from random import *
+
+x = [randrange(0, 10) for _ in range(5)]
+y = [randrange(0, 10) for _ in range(5)]
+
+d = []
+for i in range(len(x)):
+    d.append((x[i], y[i]))
+d = [list(i) for i in permutations(d, len(d))]
+key = {}
+for el in d:
+    track = 0
+    for i in range(len(el)-1):
+        track += np.sqrt((el[i+1][0] - el[i][0])**2+(el[i+1][1] + el[i][1])**2)
+    key[track] = d.index(el)
+k = key[min(key.keys())]
+print(d[k], k)
+print(key)
+plt.scatter([i[0] for i in d[k]], [i[1] for i in d[k]])
+plt.plot([i[0] for i in d[k]], [i[1] for i in d[k]])
+plt.plot([d[k][0][0], d[k][-1][0]], [d[k][0][1], d[k][-1][1]])
+plt.show()
+```
+![xxxxxx](/img/Figure5.png)
